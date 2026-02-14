@@ -1,0 +1,8 @@
+google-api-python-client==2.108.0
+flask==3.0.0
+transformers==4.36.0
+pandas==2.1.4
+python-dotenv==1.0.0
+torch
+torchvision
+torchaudio

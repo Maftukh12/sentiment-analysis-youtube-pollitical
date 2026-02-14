@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Sentimen Politik YouTube</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <span class="icon">📊</span>
+                    Analisis Sentimen Politik YouTube
+                </h1>
+                <p class="subtitle">Mengumpulkan dan menganalisis komentar politik dari YouTube</p>
+            </div>
+            <div class="quota-info" id="quotaInfo">
+                <span class="quota-label">API Quota:</span>
+                <span class="quota-value" id="quotaValue">-</span>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-card">
+                <h2 class="section-title">🔍 Cari Video Politik</h2>
+                <form id="searchForm" class="search-form">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="searchQuery" 
+                            class="search-input" 
+                            placeholder="Masukkan kata kunci (contoh: pemilu 2024, debat capres, politik indonesia)"
+                            required
+                        >
+                        <input 
+                            type="number" 
+                            id="maxResults" 
+                            class="number-input" 
+                            placeholder="Max hasil"
+                            value="10"
+                            min="1"
+                            max="50"
+                        >
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="searchBtn">
+                        <span class="btn-text">Cari Video</span>
+                        <span class="loader" style="display: none;"></span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Videos Section -->
+        <section class="videos-section" id="videosSection" style="display: none;">
+            <div class="videos-card">
+                <h2 class="section-title">🎥 Hasil Pencarian</h2>
+                <div id="videosList" class="videos-list"></div>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        <section class="analysis-section" id="analysisSection" style="display: none;">
+            <div class="analysis-card">
+                <div class="analysis-header">
+                    <h2 class="section-title">📈 Hasil Analisis Sentimen</h2>
+                    <div class="export-buttons">
+                        <button class="btn btn-secondary btn-sm" id="exportCsvBtn">
+                            💾 Export CSV
+                        </button>
+                        <button class="btn btn-secondary btn-sm" id="exportJsonBtn">
+                            💾 Export JSON
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="statistics-grid" id="statisticsGrid">
+                    <div class="stat-card stat-total">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Total Komentar</div>
+                            <div class="stat-value" id="totalComments">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-positive">
+                        <div class="stat-icon">😊</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Positif</div>
+                            <div class="stat-value" id="positiveCount">0</div>
+                            <div class="stat-percent" id="positivePercent">0%</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-neutral">
+                        <div class="stat-icon">😐</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Netral</div>
+                            <div class="stat-value" id="neutralCount">0</div>
+                            <div class="stat-percent" id="neutralPercent">0%</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-negative">
+                        <div class="stat-icon">😞</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Negatif</div>
+                            <div class="stat-value" id="negativeCount">0</div>
+                            <div class="stat-percent" id="negativePercent">0%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div class="chart-container">
+                    <canvas id="sentimentChart"></canvas>
+                </div>
+
+                <!-- Comments List -->
+                <div class="comments-section">
+                    <h3 class="comments-title">💬 Komentar dengan Sentimen</h3>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">Semua</button>
+                        <button class="filter-btn" data-filter="positive">Positif</button>
+                        <button class="filter-btn" data-filter="neutral">Netral</button>
+                        <button class="filter-btn" data-filter="negative">Negatif</button>
+                    </div>
+                    <div id="commentsList" class="comments-list"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
