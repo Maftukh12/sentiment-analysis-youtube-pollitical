@@ -27,7 +27,7 @@ pip install -r requirements.txt
 ```
 
 3. **Konfigurasi API Key**
-   - Jika ingin menggunakan API key sendiri, edit file `.env`:
+   - Masukan API key di file `.env`:
    ```
    YOUTUBE_API_KEY=your_api_key_here
    ```
